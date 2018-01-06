@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">Bernardo</string>
+    <string name="app_name">Bernard</string>
+    <string name="app_description">Zorro\'s mute servant</string>
+    <string name="bernardo_description">Bernard will advise you when you are coming and is always ready to open your doors</string>
     <string name="action_settings">Settings</string>
 </resources>
