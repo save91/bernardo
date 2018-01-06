@@ -6,4 +6,5 @@
     <string name="action_settings">Impostazioni</string>
     <string name="company_name">extrategy</string>
     <string name="open">Sto aprendo la porta...</string>
+    <string name="error">Errore, controlla la tua connessione e riprova</string>
 </resources>

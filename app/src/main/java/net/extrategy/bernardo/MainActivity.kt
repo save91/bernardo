@@ -1,12 +1,13 @@
 package net.extrategy.bernardo
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.indeterminateProgressDialog
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +19,11 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
             val dialog = indeterminateProgressDialog(message = R.string.open)
+            Handler().postDelayed({
+                dialog.dismiss()
+                longSnackbar(view, message = R.string.error)
+            }, 2_000)
+
         }
     }
 
