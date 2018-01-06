@@ -5,4 +5,5 @@
     <string name="bernardo_description">Bernardo ti avviserà quando stai per arrivare in extrategy ed è sempre pronto ad aprirti la strada</string>
     <string name="action_settings">Impostazioni</string>
     <string name="company_name">extrategy</string>
+    <string name="open">Sto aprendo la porta...</string>
 </resources>
