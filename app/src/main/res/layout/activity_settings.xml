@@ -18,20 +18,10 @@
             android:background="?attr/colorPrimary"
             android:elevation="0dp"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/company_name" />
+            app:title="@string/action_settings" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:tint="@color/colorPrimary"
-        app:backgroundTint="@color/colorAccent"
-        app:srcCompat="@drawable/ic_vpn_key_black" />
+    <include layout="@layout/content_settings" />
 
 </android.support.design.widget.CoordinatorLayout>
