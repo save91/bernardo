@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Bernard</string>
     <string name="app_description">Zorro\'s mute servant</string>
@@ -8,5 +9,6 @@
     <string name="error">Error, check your connection</string>
     <string name="ip_hint">Address</string>
     <string name="port_hint">Port</string>
-    <string name="credential_hint">Credential</string>
+    <string name="params_hint">Params</string>
+    <string name="path_hint">Path</string>
 </resources>

@@ -51,14 +51,25 @@
             android:layout_height="match_parent">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/credentialServer"
+                android:id="@+id/pathServer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/credential_hint"
+                android:hint="@string/path_hint"
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/paramsServer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/params_hint"
+                android:inputType="textPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

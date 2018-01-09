@@ -9,5 +9,6 @@
     <string name="error">Errore, controlla la tua connessione e riprova</string>
     <string name="ip_hint">Indirizzo</string>
     <string name="port_hint">Porta</string>
-    <string name="credential_hint">Credenziali</string>
+    <string name="params_hint">Parametri</string>
+    <string name="path_hint">Path</string>
 </resources>
