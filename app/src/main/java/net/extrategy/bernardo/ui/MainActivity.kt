@@ -2,17 +2,25 @@ package net.extrategy.bernardo.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_main.*
 import net.extrategy.bernardo.R
+import net.extrategy.bernardo.extensions.DelegatesExt
+import net.extrategy.bernardo.services.HTTPService
+import net.extrategy.bernardo.services.VolleyService
 import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.indeterminateProgressDialog
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
+    private val service = VolleyService()
+    private val httpService = HTTPService(service)
+    private var ipAddress: String by DelegatesExt.preference(this, SettingsActivity.IP_ADDRESS, SettingsActivity.DEFAULT_IP_ADDRESS)
+    private var port: String by DelegatesExt.preference(this, SettingsActivity.PORT, SettingsActivity.DEFAULT_PORT)
+    private var path: String by DelegatesExt.preference(this, SettingsActivity.PATH, SettingsActivity.DEFAULT_PATH)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +29,13 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
             val dialog = indeterminateProgressDialog(message = R.string.open)
-            Handler().postDelayed({
-                if (dialog?.isShowing) {
-                    dialog?.dismiss()
-                    longSnackbar(view, message = R.string.error)
+            httpService.get("$ipAddress:$port/$path") { response ->
+                dialog?.dismiss()
+                when(response) {
+                    is JSONObject -> longSnackbar(view, R.string.success_open)
+                    else -> longSnackbar(view, message = R.string.error)
                 }
-            }, 2_000)
+            }
         }
     }
 
