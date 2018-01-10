@@ -18,15 +18,18 @@ class SettingsActivity : AppCompatActivity() {
         val DEFAULT_IP_ADDRESS = "127.0.0.1"
         val PORT = "port"
         val DEFAULT_PORT= "80"
-        val PARAMS = "params"
-        val DEFAULT_PARAMS = ""
+        val PARAMS_ID = "params_id"
+        val DEFAULT_PARAMS_ID = ""
+        val PARAMS_CS = "params_cs"
+        val DEFAULT_PARAMS_CS = ""
         val PATH = "path"
         val DEFAULT_PATH= ""
     }
 
     private var ipAddress: String by DelegatesExt.preference(this, IP_ADDRESS, DEFAULT_IP_ADDRESS)
     private var port: String by DelegatesExt.preference(this, PORT, DEFAULT_PORT)
-    private var params: String by DelegatesExt.preference(this, PARAMS, DEFAULT_PARAMS)
+    private var params_id: String by DelegatesExt.preference(this, PARAMS_ID, DEFAULT_PARAMS_ID)
+    private var params_cs: String by DelegatesExt.preference(this, PARAMS_CS, DEFAULT_PARAMS_CS)
     private var path: String by DelegatesExt.preference(this, PATH, DEFAULT_PATH)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +40,8 @@ class SettingsActivity : AppCompatActivity() {
         ipServer.setText(ipAddress)
         portServer.setText(port)
         pathServer.setText(path)
-        paramsServer.setText(params)
+        paramsIdServer.setText(params_id)
+        paramsCsServer.setText(params_id)
     }
 
     override fun onBackPressed() {
@@ -45,7 +49,8 @@ class SettingsActivity : AppCompatActivity() {
         ipAddress = ipServer.text.toString()
         port = portServer.text.toString()
         path = pathServer.text.toString()
-        params = paramsServer.text.toString()
+        params_id = paramsIdServer.text.toString()
+        params_cs = paramsCsServer.text.toString()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

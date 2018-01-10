@@ -63,10 +63,22 @@
             android:layout_height="match_parent">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/paramsServer"
+                android:id="@+id/paramsIdServer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/params_hint"
+                android:hint="@string/params_id_hint"
+                android:inputType="textPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/paramsCsServer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/params_cs_hint"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 

@@ -10,7 +10,7 @@ import org.json.JSONObject
 class HTTPService constructor(serviceInjection: HTTPInterface): HTTPInterface {
     private val service: HTTPInterface = serviceInjection
 
-    override fun post(path: String, params: JSONObject, completionHandler: (response: JSONObject?) -> Unit) {
+    override fun post(path: String, params: HashMap<String, String>, completionHandler: (response: JSONObject?) -> Unit) {
         service.post(path, params, completionHandler)
     }
 

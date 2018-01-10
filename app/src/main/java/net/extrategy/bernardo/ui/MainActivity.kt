@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private var ipAddress: String by DelegatesExt.preference(this, SettingsActivity.IP_ADDRESS, SettingsActivity.DEFAULT_IP_ADDRESS)
     private var port: String by DelegatesExt.preference(this, SettingsActivity.PORT, SettingsActivity.DEFAULT_PORT)
     private var path: String by DelegatesExt.preference(this, SettingsActivity.PATH, SettingsActivity.DEFAULT_PATH)
+    private var params_id: String by DelegatesExt.preference(this, SettingsActivity.PARAMS_ID, SettingsActivity.DEFAULT_PARAMS_ID)
+    private var params_cs: String by DelegatesExt.preference(this, SettingsActivity.PARAMS_CS, SettingsActivity.DEFAULT_PARAMS_CS)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +31,11 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
             val dialog = indeterminateProgressDialog(message = R.string.open)
-            httpService.get("$ipAddress:$port/$path") { response ->
-                dialog?.dismiss()
+            val params = HashMap<String, String>()
+            params.put("id", params_id)
+            params.put("cs", params_cs)
+            httpService.post("$ipAddress:$port/$path", params) { response ->
+                dialog.dismiss()
                 when(response) {
                     is JSONObject -> longSnackbar(view, R.string.success_open)
                     else -> longSnackbar(view, message = R.string.error)

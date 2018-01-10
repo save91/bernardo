@@ -7,6 +7,6 @@ import org.json.JSONObject
  */
 
 interface HTTPInterface {
-    fun post(path: String, params: JSONObject, completionHandler: (response: JSONObject?) -> Unit)
+    fun post(path: String, params: HashMap<String, String>, completionHandler: (response: JSONObject?) -> Unit)
     fun get(path: String, completionHandler: (response: JSONObject?) -> Unit)
 }
