@@ -13,4 +13,7 @@
     <string name="params_id_hint">Id</string>
     <string name="params_cs_hint">Cs</string>
     <string name="path_hint">Path</string>
+    <string name="notification_channel_default">default Channel</string>
+    <string name="notification_title">Welcome</string>
+    <string name="notification_body">Open the door!</string>
 </resources>

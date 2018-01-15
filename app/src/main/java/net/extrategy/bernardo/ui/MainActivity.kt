@@ -1,8 +1,5 @@
 package net.extrategy.bernardo.ui
 
-import android.app.Notification
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,6 +9,7 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import net.extrategy.bernardo.R
 import net.extrategy.bernardo.extensions.DelegatesExt
+import net.extrategy.bernardo.helpers.NotificationHelper
 import net.extrategy.bernardo.services.HTTPService
 import net.extrategy.bernardo.services.VolleyService
 import org.jetbrains.anko.design.longSnackbar
@@ -27,20 +25,24 @@ class MainActivity : AppCompatActivity() {
     private var paramsId: String by DelegatesExt.preference(this, SettingsActivity.PARAMS_ID, SettingsActivity.DEFAULT_PARAMS_ID)
     private var paramsCs: String by DelegatesExt.preference(this, SettingsActivity.PARAMS_CS, SettingsActivity.DEFAULT_PARAMS_CS)
 
+    /*
+     * A helper class for initializing notification channels and sending notifications.
+     */
+    private lateinit var mNotificationHelper: NotificationHelper
+
+    companion object {
+        private val TAG = MainActivity::class.java.simpleName
+
+        private val NOTIFICATION_GEOFENCE = 1100
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
+        mNotificationHelper = NotificationHelper(this)
         fab.setOnClickListener { view ->
-            val mBuilder = Notification.Builder(this)
-                    .setSmallIcon(R.drawable.notify_panel_notification_icon_bg)
-                    .setContentTitle("My Notification")
-                    .setContentText("Hello World!")
-            val mNotifyMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            val mNotification = mBuilder.build()
-            val mId = 101
-            mNotifyMgr.notify(mId, mNotification)
+            sendNotification()
             val dialog = indeterminateProgressDialog(message = R.string.open)
             val params = HashMap<String, String>()
             params.put("id", paramsId)
@@ -75,5 +77,13 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
         return true
+    }
+
+    private fun sendNotification() {
+        mNotificationHelper.notify(
+                NOTIFICATION_GEOFENCE,
+                mNotificationHelper.getNotificationDefault(
+                        getString(R.string.notification_title),
+                        getString(R.string.notification_body)))
     }
 }
