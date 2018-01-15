@@ -1,5 +1,8 @@
 package net.extrategy.bernardo.ui
 
+import android.app.Notification
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -21,8 +24,8 @@ class MainActivity : AppCompatActivity() {
     private var ipAddress: String by DelegatesExt.preference(this, SettingsActivity.IP_ADDRESS, SettingsActivity.DEFAULT_IP_ADDRESS)
     private var port: String by DelegatesExt.preference(this, SettingsActivity.PORT, SettingsActivity.DEFAULT_PORT)
     private var path: String by DelegatesExt.preference(this, SettingsActivity.PATH, SettingsActivity.DEFAULT_PATH)
-    private var params_id: String by DelegatesExt.preference(this, SettingsActivity.PARAMS_ID, SettingsActivity.DEFAULT_PARAMS_ID)
-    private var params_cs: String by DelegatesExt.preference(this, SettingsActivity.PARAMS_CS, SettingsActivity.DEFAULT_PARAMS_CS)
+    private var paramsId: String by DelegatesExt.preference(this, SettingsActivity.PARAMS_ID, SettingsActivity.DEFAULT_PARAMS_ID)
+    private var paramsCs: String by DelegatesExt.preference(this, SettingsActivity.PARAMS_CS, SettingsActivity.DEFAULT_PARAMS_CS)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +33,18 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
+            val mBuilder = Notification.Builder(this)
+                    .setSmallIcon(R.drawable.notify_panel_notification_icon_bg)
+                    .setContentTitle("My Notification")
+                    .setContentText("Hello World!")
+            val mNotifyMgr = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val mNotification = mBuilder.build()
+            val mId = 101
+            mNotifyMgr.notify(mId, mNotification)
             val dialog = indeterminateProgressDialog(message = R.string.open)
             val params = HashMap<String, String>()
-            params.put("id", params_id)
-            params.put("cs", params_cs)
+            params.put("id", paramsId)
+            params.put("cs", paramsCs)
             httpService.post("$ipAddress:$port/$path", params) { response ->
                 dialog.dismiss()
                 when(response) {
