@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         mNotificationHelper = NotificationHelper(this)
         fab.setOnClickListener { view ->
-            sendNotification()
             val dialog = indeterminateProgressDialog(message = R.string.open)
             val params = HashMap<String, String>()
             params.put("id", paramsId)

@@ -41,7 +41,7 @@ class SettingsActivity : AppCompatActivity() {
         portServer.setText(port)
         pathServer.setText(path)
         paramsIdServer.setText(params_id)
-        paramsCsServer.setText(params_id)
+        paramsCsServer.setText(params_cs)
     }
 
     override fun onBackPressed() {
