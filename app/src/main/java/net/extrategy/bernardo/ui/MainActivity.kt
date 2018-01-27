@@ -1,5 +1,6 @@
 package net.extrategy.bernardo.ui
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private var path: String by DelegatesExt.preference(this, SettingsActivity.PATH, SettingsActivity.DEFAULT_PATH)
     private var paramsId: String by DelegatesExt.preference(this, SettingsActivity.PARAMS_ID, SettingsActivity.DEFAULT_PARAMS_ID)
     private var paramsCs: String by DelegatesExt.preference(this, SettingsActivity.PARAMS_CS, SettingsActivity.DEFAULT_PARAMS_CS)
-
+    private var dialog: ProgressDialog? = null
     /*
      * A helper class for initializing notification channels and sending notifications.
      */
@@ -42,18 +43,26 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         mNotificationHelper = NotificationHelper(this)
         fab.setOnClickListener { view ->
-            val dialog = indeterminateProgressDialog(message = R.string.open)
+            dialog = indeterminateProgressDialog(message = R.string.open)
             val params = HashMap<String, String>()
             params.put("id", paramsId)
             params.put("cs", paramsCs)
             httpService.post("$ipAddress:$port/$path", params) { response ->
-                dialog.dismiss()
-                when(response) {
-                    is JSONObject -> longSnackbar(view, R.string.success_open)
-                    else -> longSnackbar(view, message = R.string.error)
+                if (dialog != null) {
+                    dialog?.dismiss()
+                    when (response) {
+                        is JSONObject -> longSnackbar(view, R.string.success_open)
+                        else -> longSnackbar(view, message = R.string.error)
+                    }
                 }
             }
         }
+    }
+
+    override fun onPause() {
+        dialog?.dismiss()
+        dialog = null
+        super.onPause()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
