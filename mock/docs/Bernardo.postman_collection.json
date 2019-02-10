@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "7854442f-3388-421b-9278-f1fa35788827",
+		"name": "Bernardo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "door",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:{{serverPort}}/api/{{apiVersion}}/door",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "{{serverPort}}",
+					"path": [
+						"api",
+						"{{apiVersion}}",
+						"door"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "door",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{serverName}}:{{serverPort}}/api/{{apiVersion}}/door",
+							"protocol": "http",
+							"host": [
+								"{{serverName}}"
+							],
+							"port": "{{serverPort}}",
+							"path": [
+								"api",
+								"{{apiVersion}}",
+								"door"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "30"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1e-cP8QwdgzSTnt8V+ZNzJoZPmSFHQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 10 Feb 2019 15:24:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"The port is open\"\n}"
+				}
+			]
+		},
+		{
+			"name": "gate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{serverName}}:{{serverPort}}/api/{{apiVersion}}/gate",
+					"protocol": "http",
+					"host": [
+						"{{serverName}}"
+					],
+					"port": "{{serverPort}}",
+					"path": [
+						"api",
+						"{{apiVersion}}",
+						"gate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "gate",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{serverName}}:{{serverPort}}/api/{{apiVersion}}/gate",
+							"protocol": "http",
+							"host": [
+								"{{serverName}}"
+							],
+							"port": "{{serverPort}}",
+							"path": [
+								"api",
+								"{{apiVersion}}",
+								"gate"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "30"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1e-7IGp6VS5KJDYMTY/lh03fjdxAtQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 10 Feb 2019 15:33:58 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"The gate is open\"\n}"
+				}
+			]
+		}
+	]
+}
