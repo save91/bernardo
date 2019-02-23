@@ -15,6 +15,8 @@ public class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
     private static final String SERVER = "http://10.0.2.2:8080/api/v1.0";
     private static final String DOOR_PATH = "/door";
+    private static final String GATE_PATH = "/gate";
+
     /**
      * Builds the URL used to talk to the proxy server
      *
@@ -22,6 +24,27 @@ public class NetworkUtils {
      */
     public static URL buildDoorUrl() {
         Uri builtUri = Uri.parse(SERVER + DOOR_PATH).buildUpon()
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Log.v(TAG, "Built URI " + url);
+
+        return url;
+    }
+
+    /**
+     * Builds the URL used to talk to the proxy server
+     *
+     * @return The URL to use to open the gate.
+     */
+    public static URL buildGateUrl() {
+        Uri builtUri = Uri.parse(SERVER + GATE_PATH).buildUpon()
                 .build();
 
         URL url = null;

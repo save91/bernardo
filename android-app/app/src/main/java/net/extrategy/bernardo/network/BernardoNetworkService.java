@@ -35,15 +35,22 @@ public class BernardoNetworkService {
     }
 
     public void startOpenDoorService() {
-        Intent intentToFetch = new Intent(mContext, BernardoIntentService.class);
-        mContext.startService(intentToFetch);
+        Intent intent = new Intent(mContext, BernardoIntentService.class);
+        intent.putExtra(BernardoIntentService.EXTRA_ACTION, BernardoIntentService.ACTION_DOOR);
+        mContext.startService(intent);
+        Log.d(TAG, "Service created");
+    }
+
+    public void startOpenGateService() {
+        Intent intent = new Intent(mContext, BernardoIntentService.class);
+        intent.putExtra(BernardoIntentService.EXTRA_ACTION, BernardoIntentService.ACTION_GATE);
+        mContext.startService(intent);
         Log.d(TAG, "Service created");
     }
 
 
     public void openDoor() {
         Log.d(TAG, "open door");
-        Log.d(TAG, "fetchPosts");
 
         mExecutors.networkIO().execute(() -> {
             try {
@@ -52,6 +59,22 @@ public class BernardoNetworkService {
 
 
                 String jsonResponse = NetworkUtils.getResponseFromHttpUrl(openDoorUrl);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void openGate() {
+        Log.d(TAG, "open gate");
+
+        mExecutors.networkIO().execute(() -> {
+            try {
+                URL openGateUrl = NetworkUtils.buildGateUrl();
+                Log.d(TAG, "openGateUrl: " + openGateUrl.toString());
+
+
+                String jsonResponse = NetworkUtils.getResponseFromHttpUrl(openGateUrl);
             } catch (Exception e) {
                 e.printStackTrace();
             }

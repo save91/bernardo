@@ -1,5 +1,7 @@
 package net.extrategy.bernardo.ui;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
     private Button mButtonDoor;
     private Button mButtonGate;
 
+    private AlertDialog mAlertDoor;
+    private AlertDialog mAlertGate;
+
     private BernardoNetworkService mBernardoNetworkService;
 
     @Override
@@ -28,14 +33,46 @@ public class MainActivity extends AppCompatActivity {
         mButtonDoor = findViewById(R.id.button_door);
         mButtonGate = findViewById(R.id.button_gate);
 
-        mButtonDoor.setOnClickListener((View v) -> {
-            mBernardoNetworkService.startOpenDoorService();
-            Toast.makeText(this, R.string.btn_door, Toast.LENGTH_LONG).show();
+        mAlertDoor = buildAlertDoor();
+        mAlertGate = buildAlertGate();
+
+        mButtonDoor.setOnClickListener((View v) -> mAlertDoor.show());
+
+        mButtonGate.setOnClickListener((View v) -> mAlertGate.show());
+
+    }
+
+    private AlertDialog buildAlertDoor() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(R.string.alert_door_message)
+                .setTitle(R.string.alert_door_title);
+
+        builder.setPositiveButton(R.string.ok_door, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                mBernardoNetworkService.startOpenDoorService();
+            }
         });
 
-        mButtonGate.setOnClickListener((View v) -> {
-            Toast.makeText(this, R.string.btn_gate, Toast.LENGTH_LONG).show();
+        builder.setNegativeButton(R.string.cancel, null);
+
+        return builder.create();
+    }
+
+    private AlertDialog buildAlertGate() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(R.string.alert_gate_message)
+                .setTitle(R.string.alert_gate_title);
+
+        builder.setPositiveButton(R.string.ok_gate, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                mBernardoNetworkService.startOpenGateService();
+            }
         });
 
+        builder.setNegativeButton(R.string.cancel, null);
+
+        return builder.create();
     }
 }

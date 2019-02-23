@@ -8,6 +8,9 @@ import net.extrategy.bernardo.utilities.InjectorUtils;
 
 public class BernardoIntentService extends IntentService {
     private static final String TAG = BernardoIntentService.class.getSimpleName();
+    public static final String EXTRA_ACTION = "ACTION";
+    public static final String ACTION_DOOR = "DOOR";
+    public static final String ACTION_GATE = "GATE";
 
     public BernardoIntentService() {
         super("BernardoIntentService");
@@ -18,6 +21,17 @@ public class BernardoIntentService extends IntentService {
         Log.d(TAG, "Intent service started");
         BernardoNetworkService networkService =
                 InjectorUtils.provideNetworService(this.getApplicationContext());
-        networkService.openDoor();
+        String action = intent.getStringExtra(EXTRA_ACTION);
+        if (action == null) {
+            return;
+        }
+
+        if (action.equals(ACTION_DOOR)) {
+            networkService.openDoor();
+        }
+
+        if (action.equals(ACTION_GATE)) {
+            networkService.openGate();
+        }
     }
 }
