@@ -3,19 +3,23 @@ const PORT = 8080
 
 const app = express()
 
-app.post('/api/:version/door', async (req, res) => {
+app.get('/api/:version/door', async (req, res) => {
+    const message = "The port is open"
     const toReturn = {
-        message: "The port is open"
+        message
     }
 
+    console.log(message)
     res.send(toReturn)
 })
 
-app.post('/api/:version/gate', async (req, res) => {
+app.get('/api/:version/gate', async (req, res) => {
+    const message = "The gate is open"
     const toReturn = {
-        message: "The gate is open"
+        message
     }
 
+    console.log(message)
     res.send(toReturn)
 })
 

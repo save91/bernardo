@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- TODO: improve security and allow cleartext only on debug mode -->
+    <base-config cleartextTrafficPermitted="true"/>
+</network-security-config>

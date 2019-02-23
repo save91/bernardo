@@ -8,7 +8,7 @@
 		{
 			"name": "door",
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -32,7 +32,7 @@
 				{
 					"name": "door",
 					"originalRequest": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -74,7 +74,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Sun, 10 Feb 2019 15:24:31 GMT"
+							"value": "Sat, 23 Feb 2019 14:11:25 GMT"
 						},
 						{
 							"key": "Connection",
@@ -89,7 +89,7 @@
 		{
 			"name": "gate",
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -113,7 +113,7 @@
 				{
 					"name": "gate",
 					"originalRequest": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -155,7 +155,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Sun, 10 Feb 2019 15:33:58 GMT"
+							"value": "Sat, 23 Feb 2019 14:11:42 GMT"
 						},
 						{
 							"key": "Connection",
