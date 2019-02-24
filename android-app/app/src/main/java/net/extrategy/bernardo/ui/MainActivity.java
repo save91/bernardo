@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
             isUserCloserToExtrategy = isChecked;
             if (isUserCloserToExtrategy) {
                 NotificationUtils.remindUserBecauseIsCloser(this);
+            } else {
+                NotificationUtils.clearAllNotifications(this);
             }
         });
 

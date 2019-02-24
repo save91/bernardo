@@ -21,8 +21,16 @@ public class NotificationUtils{
     private static final Integer NOTIFICATION_ID = 24;
     private static final String BERNARDO_NOTIFICATION_CHANNEL_ID = "bernardo_notification_channel";
 
+    public static void clearAllNotifications(Context context) {
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
+
+    }
+
     public static void remindUserBecauseIsCloser(Context context) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(
                     BERNARDO_NOTIFICATION_CHANNEL_ID,
