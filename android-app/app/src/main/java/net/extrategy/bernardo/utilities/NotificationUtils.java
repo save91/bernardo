@@ -14,11 +14,13 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
 import net.extrategy.bernardo.R;
+import net.extrategy.bernardo.network.BernardoIntentService;
 import net.extrategy.bernardo.ui.MainActivity;
 
 public class NotificationUtils{
     private static final Integer PENDING_INTENT_ID = 24;
     private static final Integer NOTIFICATION_ID = 24;
+    private static final Integer ACIONT_OPEN_DOOR_PENDING_INTENT_ID = 25;
     private static final String BERNARDO_NOTIFICATION_CHANNEL_ID = "bernardo_notification_channel";
 
     public static void clearAllNotifications(Context context) {
@@ -52,6 +54,7 @@ public class NotificationUtils{
                     ))
                     .setDefaults(Notification.DEFAULT_VIBRATE)
                     .setContentIntent(contentIntent(context))
+                    .addAction(openTheDootAction(context))
                     .setAutoCancel(false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
@@ -60,6 +63,26 @@ public class NotificationUtils{
         }
 
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+    }
+
+    private static NotificationCompat.Action openTheDootAction(Context context) {
+        Intent intent = new Intent(context, BernardoIntentService.class);
+        intent.putExtra(BernardoIntentService.EXTRA_ACTION, BernardoIntentService.ACTION_DOOR);
+
+        PendingIntent pendingIntent = PendingIntent.getService(
+                context,
+                ACIONT_OPEN_DOOR_PENDING_INTENT_ID,
+                intent,
+                PendingIntent.FLAG_CANCEL_CURRENT
+        );
+
+        NotificationCompat.Action action = new NotificationCompat.Action(
+                R.drawable.ic_stat_name,
+                context.getString(R.string.ok_door),
+                pendingIntent
+        );
+
+        return action;
     }
 
     private static PendingIntent contentIntent(Context context) {
