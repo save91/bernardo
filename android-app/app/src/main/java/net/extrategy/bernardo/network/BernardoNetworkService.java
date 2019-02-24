@@ -6,13 +6,17 @@ import android.util.Log;
 
 import net.extrategy.bernardo.AppExecutors;
 
-import java.net.URL;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
 
 public class BernardoNetworkService {
     private static final String TAG = BernardoNetworkService.class.getSimpleName();
 
     private static final Object LOCK = new Object();
     private static BernardoNetworkService sInstance;
+    private static BernardoAPI sBernardoAPI;
     private final Context mContext;
 
     private final AppExecutors mExecutors;
@@ -27,6 +31,11 @@ public class BernardoNetworkService {
         if (sInstance == null) {
             synchronized (LOCK) {
                 sInstance = new BernardoNetworkService(context.getApplicationContext(), executors);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://10.0.2.2:8080/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                sBernardoAPI = retrofit.create(BernardoAPI.class);
                 Log.d(TAG, "Made new network data source");
             }
         }
@@ -48,17 +57,26 @@ public class BernardoNetworkService {
         Log.d(TAG, "Service created");
     }
 
+    private class BernardoResponse {
+        String message;
+    }
+
+    private interface BernardoAPI {
+        @GET("api/v1.0/door")
+        Call<BernardoResponse> door();
+
+        @GET("api/v1.0/gate")
+        Call<BernardoResponse> gate();
+    }
 
     public void openDoor() {
         Log.d(TAG, "open door");
 
         mExecutors.networkIO().execute(() -> {
+            Call<BernardoResponse> callDoor = sBernardoAPI.door();
             try {
-                URL openDoorUrl = NetworkUtils.buildDoorUrl();
-                Log.d(TAG, "openDoorUrl: " + openDoorUrl.toString());
-
-
-                String jsonResponse = NetworkUtils.getResponseFromHttpUrl(openDoorUrl);
+                BernardoResponse result = callDoor.execute().body();
+                Log.d(TAG, result.message);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -69,12 +87,10 @@ public class BernardoNetworkService {
         Log.d(TAG, "open gate");
 
         mExecutors.networkIO().execute(() -> {
+            Call<BernardoResponse> callDoor = sBernardoAPI.gate();
             try {
-                URL openGateUrl = NetworkUtils.buildGateUrl();
-                Log.d(TAG, "openGateUrl: " + openGateUrl.toString());
-
-
-                String jsonResponse = NetworkUtils.getResponseFromHttpUrl(openGateUrl);
+                BernardoResponse result = callDoor.execute().body();
+                Log.d(TAG, result.message);
             } catch (Exception e) {
                 e.printStackTrace();
             }
