@@ -29,4 +29,7 @@
     <string name="ok_door">Yes, open the door</string>
     <string name="ok_gate">Yes, open the gate</string>
     <string name="cancel">Cancel</string>
+
+    <string name="closer">DEBUG: Are you closer to extrategy?</string>
+
 </resources>

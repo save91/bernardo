@@ -29,4 +29,6 @@
     <string name="ok_door">Sì, apri la porta</string>
     <string name="ok_gate">Sì, apri il cancello</string>
     <string name="cancel">Annulla</string>
+
+    <string name="closer">DEBUG: Ti trovi nelle vicinanze di extrategy?</string>
 </resources>

@@ -5,9 +5,10 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import net.extrategy.bernardo.R;
@@ -21,9 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mButtonDoor;
     private Button mButtonGate;
+    private Switch mSwitchCloser;
 
     private AlertDialog mAlertDoor;
     private AlertDialog mAlertGate;
+
+    private boolean isUserCloserToExtrategy = false;
 
     private BernardoNetworkService mBernardoNetworkService;
 
@@ -36,13 +40,30 @@ public class MainActivity extends AppCompatActivity {
 
         mButtonDoor = findViewById(R.id.button_door);
         mButtonGate = findViewById(R.id.button_gate);
+        mSwitchCloser = findViewById(R.id.switch_closer);
 
         mAlertDoor = buildAlertDoor();
         mAlertGate = buildAlertGate();
 
-        mButtonDoor.setOnClickListener((View v) -> mAlertDoor.show());
+        mSwitchCloser.setOnCheckedChangeListener((CompoundButton button, boolean isChecked) -> {
+            isUserCloserToExtrategy = isChecked;
+        });
 
-        mButtonGate.setOnClickListener((View v) -> mAlertGate.show());
+        mButtonDoor.setOnClickListener((View v) -> {
+            if (isUserCloserToExtrategy) {
+                mBernardoNetworkService.startOpenDoorService();
+            } else {
+                mAlertDoor.show();
+            }
+        });
+
+        mButtonGate.setOnClickListener((View v) -> {
+            if (isUserCloserToExtrategy) {
+                mBernardoNetworkService.startOpenGateService();
+            } else {
+                mAlertGate.show();
+            }
+        });
 
         MainViewModelFactory factory = InjectorUtils.provideMainViewModelFactory(this);
         mViewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel.class);
