@@ -16,7 +16,7 @@
     <string name="path_hint">Path</string>
     <string name="notification_channel_default">default Channel</string>
     <string name="notification_title">Welcome</string>
-    <string name="notification_body">Open the door!</string>
+    <string name="notification_body">Do you want open the door?</string>
 
     <string name="btn_door">Door</string>
     <string name="btn_gate">Gate</string>
@@ -31,5 +31,4 @@
     <string name="cancel">Cancel</string>
 
     <string name="closer">DEBUG: Are you closer to extrategy?</string>
-
 </resources>

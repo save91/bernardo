@@ -14,6 +14,7 @@ import android.widget.Toast;
 import net.extrategy.bernardo.R;
 import net.extrategy.bernardo.network.BernardoNetworkService;
 import net.extrategy.bernardo.utilities.InjectorUtils;
+import net.extrategy.bernardo.utilities.NotificationUtils;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
         mSwitchCloser.setOnCheckedChangeListener((CompoundButton button, boolean isChecked) -> {
             isUserCloserToExtrategy = isChecked;
+            if (isUserCloserToExtrategy) {
+                NotificationUtils.remindUserBecauseIsCloser(this);
+            }
         });
 
         mButtonDoor.setOnClickListener((View v) -> {
