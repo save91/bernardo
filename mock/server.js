@@ -1,4 +1,5 @@
 const express = require('express')
+const sleep = require('./utils/sleep')
 const PORT = 8080
 
 const app = express()
@@ -9,6 +10,7 @@ app.get('/api/:version/door', async (req, res) => {
         message
     }
 
+    await sleep(3000);
     console.log(message)
     res.send(toReturn)
 })
@@ -19,6 +21,7 @@ app.get('/api/:version/gate', async (req, res) => {
         message
     }
 
+    await sleep(3000);
     console.log(message)
     res.send(toReturn)
 })
