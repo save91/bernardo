@@ -1,9 +1,11 @@
 package net.extrategy.bernardo.ui;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,6 +16,8 @@ import net.extrategy.bernardo.utilities.InjectorUtils;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
+
+    private MainActivityViewModel mViewModel;
 
     private Button mButtonDoor;
     private Button mButtonGate;
@@ -39,6 +43,33 @@ public class MainActivity extends AppCompatActivity {
         mButtonDoor.setOnClickListener((View v) -> mAlertDoor.show());
 
         mButtonGate.setOnClickListener((View v) -> mAlertGate.show());
+
+        MainViewModelFactory factory = InjectorUtils.provideMainViewModelFactory(this);
+        mViewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel.class);
+
+        mViewModel.isOpeningTheDoor().observe(this, loading -> {
+            if (loading != null) {
+                mButtonDoor.setEnabled(!loading);
+            }
+        });
+
+        mViewModel.isOpeningTheGate().observe(this, loading -> {
+            if (loading != null) {
+                mButtonGate.setEnabled(!loading);
+            }
+        });
+
+        mViewModel.onError().observe(this, error -> {
+            if (error != null) {
+                showToast(error);
+            }
+        });
+
+        mViewModel.onSuccess().observe(this, success -> {
+            if (success != null) {
+                showToast(success);
+            }
+        });
 
     }
 
@@ -74,5 +105,9 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton(R.string.cancel, null);
 
         return builder.create();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

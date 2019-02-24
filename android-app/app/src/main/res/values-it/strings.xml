@@ -6,7 +6,8 @@
     <string name="action_settings">Impostazioni</string>
     <string name="company_name">extrategy</string>
     <string name="open">Sto aprendo la porta...</string>
-    <string name="success_open">La porta è aperta</string>
+    <string name="success_door">La porta è aperta</string>
+    <string name="success_gate">Il cancello è aperto</string>
     <string name="error">Errore, controlla la tua connessione e riprova</string>
     <string name="ip_hint">Indirizzo</string>
     <string name="port_hint">Porta</string>

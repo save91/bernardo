@@ -1,7 +1,7 @@
 const express = require('express')
 const sleep = require('./utils/sleep')
 const PORT = 8080
-const SLEEP_TIME = 0
+const SLEEP_TIME = 3000
 
 const app = express()
 

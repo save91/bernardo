@@ -93,7 +93,7 @@
                 android:minWidth="0dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:textColor="#DE000000"
+                android:textColor="@drawable/button_text"
                 android:text="@string/btn_gate"
                 app:layout_constraintTop_toBottomOf="@+id/supporting_text"
                 app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +110,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="@string/btn_door"
-                android:textColor="#DE000000"
+                android:textColor="@drawable/button_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/button_gate" />
 

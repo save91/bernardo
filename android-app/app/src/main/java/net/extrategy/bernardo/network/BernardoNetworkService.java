@@ -1,10 +1,13 @@
 package net.extrategy.bernardo.network;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 import net.extrategy.bernardo.AppExecutors;
+import net.extrategy.bernardo.R;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -18,6 +21,11 @@ public class BernardoNetworkService {
     private static BernardoNetworkService sInstance;
     private static BernardoAPI sBernardoAPI;
     private final Context mContext;
+
+    private static MutableLiveData<Boolean> mIsOpeningTheDoor;
+    private static MutableLiveData<Boolean> mIsOpeningTheGate;
+    private static MutableLiveData<String> mSuccess;
+    private static MutableLiveData<String> mError;
 
     private final AppExecutors mExecutors;
 
@@ -36,6 +44,16 @@ public class BernardoNetworkService {
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 sBernardoAPI = retrofit.create(BernardoAPI.class);
+                mIsOpeningTheDoor = new MutableLiveData<>();
+                mIsOpeningTheGate = new MutableLiveData<>();
+                mSuccess = new MutableLiveData<>();
+                mError = new MutableLiveData<>();
+
+                mIsOpeningTheDoor.postValue(false);
+                mIsOpeningTheGate.postValue(false);
+                mSuccess.postValue(null);
+                mError.postValue(null);
+
                 Log.d(TAG, "Made new network data source");
             }
         }
@@ -71,30 +89,54 @@ public class BernardoNetworkService {
 
     public void openDoor() {
         Log.d(TAG, "open door");
+        mIsOpeningTheDoor.postValue(true);
 
         mExecutors.networkIO().execute(() -> {
             Call<BernardoResponse> callDoor = sBernardoAPI.door();
             try {
                 BernardoResponse result = callDoor.execute().body();
                 Log.d(TAG, result.message);
+                mSuccess.postValue(mContext.getResources().getString(R.string.success_door));
             } catch (Exception e) {
+                mError.postValue(mContext.getResources().getString(R.string.error));
                 e.printStackTrace();
             }
+            mIsOpeningTheDoor.postValue(false);
         });
     }
 
     public void openGate() {
         Log.d(TAG, "open gate");
+        mIsOpeningTheGate.postValue(true);
 
         mExecutors.networkIO().execute(() -> {
             Call<BernardoResponse> callDoor = sBernardoAPI.gate();
             try {
                 BernardoResponse result = callDoor.execute().body();
                 Log.d(TAG, result.message);
+                mSuccess.postValue(mContext.getResources().getString(R.string.success_gate));
             } catch (Exception e) {
+                mError.postValue(mContext.getResources().getString(R.string.error));
                 e.printStackTrace();
             }
+            mIsOpeningTheGate.postValue(false);
         });
+    }
+
+    public LiveData<Boolean> isOpeningTheDoor() {
+        return mIsOpeningTheDoor;
+    }
+
+    public LiveData<Boolean> isOpeningTheGate() {
+        return mIsOpeningTheGate;
+    }
+
+    public LiveData<String> onSuccess() {
+        return mSuccess;
+    }
+
+    public LiveData<String> onError() {
+        return mError;
     }
 
 }
