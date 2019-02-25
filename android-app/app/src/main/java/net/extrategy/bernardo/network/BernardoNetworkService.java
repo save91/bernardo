@@ -12,7 +12,9 @@ import net.extrategy.bernardo.R;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
 
 public class BernardoNetworkService {
     private static final String TAG = BernardoNetworkService.class.getSimpleName();
@@ -80,11 +82,9 @@ public class BernardoNetworkService {
     }
 
     private interface BernardoAPI {
-        @GET("api/v1.0/door")
-        Call<BernardoResponse> door();
-
-        @GET("api/v1.0/gate")
-        Call<BernardoResponse> gate();
+        @FormUrlEncoded
+        @POST("action")
+        Call<BernardoResponse> action(@Field("id") String first, @Field("cs") String last);
     }
 
     public void openDoor() {
@@ -92,7 +92,7 @@ public class BernardoNetworkService {
         mIsOpeningTheDoor.postValue(true);
 
         mExecutors.networkIO().execute(() -> {
-            Call<BernardoResponse> callDoor = sBernardoAPI.door();
+            Call<BernardoResponse> callDoor = sBernardoAPI.action("1", "test");
             try {
                 BernardoResponse result = callDoor.execute().body();
                 Log.d(TAG, result.message);
@@ -110,7 +110,7 @@ public class BernardoNetworkService {
         mIsOpeningTheGate.postValue(true);
 
         mExecutors.networkIO().execute(() -> {
-            Call<BernardoResponse> callDoor = sBernardoAPI.gate();
+            Call<BernardoResponse> callDoor = sBernardoAPI.action("2", "test");
             try {
                 BernardoResponse result = callDoor.execute().body();
                 Log.d(TAG, result.message);
