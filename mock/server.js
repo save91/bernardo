@@ -17,7 +17,7 @@ app.use(function (req, res, next) {
 
     const body = req.body || {}
     const secret = env.secret || {}
-    if (body.cs === secret.cs) {
+    if (body.cs === secret) {
         next()
     } else {
         res.status(403).send("Sorry! You can't see that.")

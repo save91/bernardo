@@ -8,23 +8,39 @@
 		{
 			"name": "door",
 			"request": {
-				"method": "GET",
-				"header": [],
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
 				"body": {
-					"mode": "raw",
-					"raw": ""
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "cs",
+							"value": "{{secret}}",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "{{idDoor}}",
+							"type": "text"
+						}
+					]
 				},
 				"url": {
-					"raw": "http://{{serverName}}:{{serverPort}}/api/{{apiVersion}}/door",
+					"raw": "http://{{serverName}}:{{serverPort}}/{{path}}",
 					"protocol": "http",
 					"host": [
 						"{{serverName}}"
 					],
 					"port": "{{serverPort}}",
 					"path": [
-						"api",
-						"{{apiVersion}}",
-						"door"
+						"{{path}}"
 					]
 				}
 			},
@@ -32,23 +48,39 @@
 				{
 					"name": "door",
 					"originalRequest": {
-						"method": "GET",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
 						"body": {
-							"mode": "raw",
-							"raw": ""
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cs",
+									"value": "{{secret}}",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "{{idDoor}}",
+									"type": "text"
+								}
+							]
 						},
 						"url": {
-							"raw": "http://{{serverName}}:{{serverPort}}/api/{{apiVersion}}/door",
+							"raw": "http://{{serverName}}:{{serverPort}}/{{path}}",
 							"protocol": "http",
 							"host": [
 								"{{serverName}}"
 							],
 							"port": "{{serverPort}}",
 							"path": [
-								"api",
-								"{{apiVersion}}",
-								"door"
+								"{{path}}"
 							]
 						}
 					},
@@ -74,7 +106,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Sat, 23 Feb 2019 14:11:25 GMT"
+							"value": "Mon, 25 Feb 2019 20:52:05 GMT"
 						},
 						{
 							"key": "Connection",
@@ -89,23 +121,46 @@
 		{
 			"name": "gate",
 			"request": {
-				"method": "GET",
-				"header": [],
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
 				"body": {
-					"mode": "raw",
-					"raw": ""
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "cs",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "2",
+							"type": "text"
+						}
+					]
 				},
 				"url": {
-					"raw": "http://{{serverName}}:{{serverPort}}/api/{{apiVersion}}/gate",
+					"raw": "http://{{serverName}}:{{serverPort}}/{{path}}?",
 					"protocol": "http",
 					"host": [
 						"{{serverName}}"
 					],
 					"port": "{{serverPort}}",
 					"path": [
-						"api",
-						"{{apiVersion}}",
-						"gate"
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "id",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -113,23 +168,46 @@
 				{
 					"name": "gate",
 					"originalRequest": {
-						"method": "GET",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
 						"body": {
-							"mode": "raw",
-							"raw": ""
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cs",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "2",
+									"type": "text"
+								}
+							]
 						},
 						"url": {
-							"raw": "http://{{serverName}}:{{serverPort}}/api/{{apiVersion}}/gate",
+							"raw": "http://{{serverName}}:{{serverPort}}/{{path}}?",
 							"protocol": "http",
 							"host": [
 								"{{serverName}}"
 							],
 							"port": "{{serverPort}}",
 							"path": [
-								"api",
-								"{{apiVersion}}",
-								"gate"
+								"{{path}}"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "id",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -155,7 +233,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Sat, 23 Feb 2019 14:11:42 GMT"
+							"value": "Mon, 25 Feb 2019 20:52:51 GMT"
 						},
 						{
 							"key": "Connection",
