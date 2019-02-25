@@ -1,6 +1,6 @@
 module.exports = {
-    secret: 'secret',
-    idDoor: 'door', 
-    idGate: 'gate', 
+    secret: 'test',
+    idDoor: '1', 
+    idGate: '2', 
     path: '/action'
 }
