@@ -35,22 +35,14 @@ app.post(env.path, async (req, res) => {
         return
     }
 
-    let message = "The port is open"
-    switch(body.id) {
-        case env.idDoor:
-            message = "The port is open"
-            break
-        case env.idGate:
-            message = "The gate is open"
-            break
-    }
+    let success = 1
 
     const toReturn = {
-        message
+        success
     }
 
     await sleep(SLEEP_TIME);
-    console.log(message)
+    console.log('done')
     res.send(toReturn)
 })
 

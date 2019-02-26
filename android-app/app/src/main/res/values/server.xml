@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="server_url" translatable="false">http://10.0.2.2:8080</string>
+    <string name="id_door" translatable="false">door</string>
+    <string name="id_gate" translatable="false">gate</string>
+    <string name="secret" translatable="false">secret</string>
+</resources>

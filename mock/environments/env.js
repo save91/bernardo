@@ -1,6 +1,6 @@
 module.exports = {
-    secret: 'test',
-    idDoor: '1', 
-    idGate: '2', 
-    path: '/action'
+    secret: 'secret',
+    idDoor: 'door', 
+    idGate: 'gate', 
+    path: '/ws_monostable.htm'
 }

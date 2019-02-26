@@ -42,7 +42,7 @@ public class BernardoNetworkService {
             synchronized (LOCK) {
                 sInstance = new BernardoNetworkService(context.getApplicationContext(), executors);
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://10.0.2.2:8080/")
+                        .baseUrl(context.getString(R.string.server_url))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 sBernardoAPI = retrofit.create(BernardoAPI.class);
@@ -78,24 +78,26 @@ public class BernardoNetworkService {
     }
 
     private class BernardoResponse {
-        String message;
+        String success;
     }
 
     private interface BernardoAPI {
         @FormUrlEncoded
-        @POST("action")
+        @POST("ws_monostable.htm")
         Call<BernardoResponse> action(@Field("id") String first, @Field("cs") String last);
     }
 
     public void openDoor() {
         Log.d(TAG, "open door");
         mIsOpeningTheDoor.postValue(true);
+        String id = mContext.getString(R.string.id_door);
+        String secret = mContext.getString(R.string.secret);
 
         mExecutors.networkIO().execute(() -> {
-            Call<BernardoResponse> callDoor = sBernardoAPI.action("1", "test");
+            Call<BernardoResponse> callDoor = sBernardoAPI.action(id, secret);
             try {
                 BernardoResponse result = callDoor.execute().body();
-                Log.d(TAG, result.message);
+                Log.d(TAG, result.success);
                 mSuccess.postValue(mContext.getResources().getString(R.string.success_door));
             } catch (Exception e) {
                 mError.postValue(mContext.getResources().getString(R.string.error));
@@ -108,12 +110,14 @@ public class BernardoNetworkService {
     public void openGate() {
         Log.d(TAG, "open gate");
         mIsOpeningTheGate.postValue(true);
+        String id = mContext.getString(R.string.id_gate);
+        String secret = mContext.getString(R.string.secret);
 
         mExecutors.networkIO().execute(() -> {
-            Call<BernardoResponse> callDoor = sBernardoAPI.action("2", "test");
+            Call<BernardoResponse> callDoor = sBernardoAPI.action(id, secret);
             try {
                 BernardoResponse result = callDoor.execute().body();
-                Log.d(TAG, result.message);
+                Log.d(TAG, result.success);
                 mSuccess.postValue(mContext.getResources().getString(R.string.success_gate));
             } catch (Exception e) {
                 mError.postValue(mContext.getResources().getString(R.string.error));
