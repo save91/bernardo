@@ -2,6 +2,8 @@ package net.extrategy.bernardo.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import net.extrategy.bernardo.R;
+import net.extrategy.bernardo.geofence.BernardGeofenceService;
 import net.extrategy.bernardo.network.BernardoNetworkService;
 import net.extrategy.bernardo.utilities.InjectorUtils;
 import net.extrategy.bernardo.utilities.NotificationUtils;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isUserCloserToExtrategy = false;
 
     private BernardoNetworkService mBernardoNetworkService;
+    private BernardGeofenceService mBernardGeofenceService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mBernardoNetworkService = InjectorUtils.provideNetworService(getApplicationContext());
+        mBernardGeofenceService = InjectorUtils.provideGeofenceService(getApplicationContext());
 
         mButtonDoor = findViewById(R.id.button_door);
         mButtonGate = findViewById(R.id.button_gate);
@@ -98,6 +103,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    200);
+        }
+
+        mBernardGeofenceService.initGeofencing();
     }
 
     private AlertDialog buildAlertDoor() {

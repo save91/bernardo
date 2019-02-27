@@ -3,6 +3,7 @@
     package="net.extrategy.bernardo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -24,6 +25,9 @@
         </activity>
         <service
             android:name=".network.BernardoIntentService"
+            android:exported="false" />
+        <service
+            android:name=".geofence.BernardoGeofenceTransitionsIntentService"
             android:exported="false" />
     </application>
 
