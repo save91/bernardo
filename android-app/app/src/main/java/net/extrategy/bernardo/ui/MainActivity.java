@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Log.i(TAG, "Passa");
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,
@@ -120,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                     PERMISSIONS_REQUEST_FINE_LOCATION);
             return;
         }
-        Log.i(TAG, "Passa2");
 
         mBernardoGeofenceService.registerGeofencing();
     }
