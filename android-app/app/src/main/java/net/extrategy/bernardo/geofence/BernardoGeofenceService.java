@@ -1,6 +1,8 @@
 package net.extrategy.bernardo.geofence;
 
 import android.app.PendingIntent;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -13,28 +15,33 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class BernardGeofenceService {
-    private static final String TAG = BernardGeofenceService.class.getSimpleName();
+import net.extrategy.bernardo.utilities.NotificationUtils;
+
+public class BernardoGeofenceService {
+    private static final String TAG = BernardoGeofenceService.class.getSimpleName();
 
     private static final Object LOCK = new Object();
-    private static BernardGeofenceService sInstance;
+    private static BernardoGeofenceService sInstance;
 
     private static final Integer PENDING_INTENT_ID = 124;
 
+    private final MutableLiveData<Boolean> mIsCloserToExtrategy;
     private final Context mContext;
     private final GeofencingClient mGeofencingClient;
 
-    private BernardGeofenceService(Context context, GeofencingClient geofencingClient) {
+    private BernardoGeofenceService(Context context, GeofencingClient geofencingClient) {
         mContext = context;
         mGeofencingClient = geofencingClient;
+        mIsCloserToExtrategy = new MutableLiveData<>();
+        mIsCloserToExtrategy.postValue(false);
     }
 
-    public static BernardGeofenceService getInstance(Context context) {
+    public static BernardoGeofenceService getInstance(Context context) {
         Log.d(TAG, "Getting the geofencing service");
         if (sInstance == null) {
             synchronized (LOCK) {
                 GeofencingClient geofencingClient = LocationServices.getGeofencingClient(context);
-                sInstance = new BernardGeofenceService(context.getApplicationContext(), geofencingClient);
+                sInstance = new BernardoGeofenceService(context.getApplicationContext(), geofencingClient);
 
                 Log.d(TAG, "Made new geofencing service");
             }
@@ -43,9 +50,9 @@ public class BernardGeofenceService {
         return sInstance;
     }
 
-    public void initGeofencing() {
+    public void registerGeofencing() {
         try {
-            mGeofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
+             mGeofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -58,8 +65,37 @@ public class BernardGeofenceService {
                         }
                     });
         } catch (SecurityException securityException) {
-            Log.e(TAG, "securityException:" + securityException.getMessage());
+            Log.e(TAG, "securityException: " + securityException.getMessage());
         }
+    }
+
+    public void unregisterGeofencing() {
+        try {
+            mGeofencingClient.removeGeofences(getGeofencePendingIntent())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Success");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+        } catch (SecurityException securityException) {
+            Log.e(TAG, "securityException: " + securityException.getMessage());
+        }
+    }
+
+    public void onEnter() {
+        mIsCloserToExtrategy.postValue(true);
+        NotificationUtils.remindUserBecauseIsCloser(mContext);
+    }
+
+    public void onExit() {
+        mIsCloserToExtrategy.postValue(false);
+        NotificationUtils.clearAllNotifications(mContext);
     }
 
     private Geofence createGeofencing() {
@@ -94,11 +130,13 @@ public class BernardGeofenceService {
     }
 
     private PendingIntent getGeofencePendingIntent() {
-        Intent intent = new Intent(mContext, BernardoGeofenceTransitionsIntentService.class);
-        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
-        // calling addGeofences() and removeGeofences().
-        PendingIntent geofencePendingIntent = PendingIntent.getService(mContext, PENDING_INTENT_ID, intent, PendingIntent.
+        Intent intent = new Intent(mContext, BernardoGeofenceBroadcastReceiver.class);
+        PendingIntent geofencePendingIntent = PendingIntent.getBroadcast(mContext, PENDING_INTENT_ID, intent, PendingIntent.
                 FLAG_UPDATE_CURRENT);
         return geofencePendingIntent;
+    }
+
+    public LiveData<Boolean> isCloserToExtrategy() {
+        return mIsCloserToExtrategy;
     }
 }

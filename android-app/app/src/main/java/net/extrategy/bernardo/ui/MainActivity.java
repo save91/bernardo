@@ -3,10 +3,12 @@ package net.extrategy.bernardo.ui;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -14,13 +16,13 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import net.extrategy.bernardo.R;
-import net.extrategy.bernardo.geofence.BernardGeofenceService;
+import net.extrategy.bernardo.geofence.BernardoGeofenceService;
 import net.extrategy.bernardo.network.BernardoNetworkService;
 import net.extrategy.bernardo.utilities.InjectorUtils;
-import net.extrategy.bernardo.utilities.NotificationUtils;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 111;
 
     private MainActivityViewModel mViewModel;
 
@@ -31,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog mAlertDoor;
     private AlertDialog mAlertGate;
 
-    private boolean isUserCloserToExtrategy = false;
+    private boolean mIsUserCloserToExtrategy = false;
 
     private BernardoNetworkService mBernardoNetworkService;
-    private BernardGeofenceService mBernardGeofenceService;
+    private BernardoGeofenceService mBernardoGeofenceService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mBernardoNetworkService = InjectorUtils.provideNetworService(getApplicationContext());
-        mBernardGeofenceService = InjectorUtils.provideGeofenceService(getApplicationContext());
+        mBernardoGeofenceService = InjectorUtils.provideGeofenceService(getApplicationContext());
 
         mButtonDoor = findViewById(R.id.button_door);
         mButtonGate = findViewById(R.id.button_gate);
@@ -52,16 +54,15 @@ public class MainActivity extends AppCompatActivity {
         mAlertGate = buildAlertGate();
 
         mSwitchCloser.setOnCheckedChangeListener((CompoundButton button, boolean isChecked) -> {
-            isUserCloserToExtrategy = isChecked;
-            if (isUserCloserToExtrategy) {
-                NotificationUtils.remindUserBecauseIsCloser(this);
+            if (isChecked) {
+                Log.i(TAG, "checked");
             } else {
-                NotificationUtils.clearAllNotifications(this);
+                Log.i(TAG, "unchecked");
             }
         });
 
         mButtonDoor.setOnClickListener((View v) -> {
-            if (isUserCloserToExtrategy) {
+            if (mIsUserCloserToExtrategy) {
                 mBernardoNetworkService.startOpenDoorService();
             } else {
                 mAlertDoor.show();
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mButtonGate.setOnClickListener((View v) -> {
-            if (isUserCloserToExtrategy) {
+            if (mIsUserCloserToExtrategy) {
                 mBernardoNetworkService.startOpenGateService();
             } else {
                 mAlertGate.show();
@@ -78,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
 
         MainViewModelFactory factory = InjectorUtils.provideMainViewModelFactory(this);
         mViewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel.class);
+
+        mViewModel.isCloserToExtrategy().observe(this, isCloser -> {
+            if (isCloser == null) {
+                mIsUserCloserToExtrategy = false;
+            } else {
+                mIsUserCloserToExtrategy = isCloser;
+            }
+        });
 
         mViewModel.isOpeningTheDoor().observe(this, loading -> {
             if (loading != null) {
@@ -103,14 +112,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Log.i(TAG, "Passa");
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    200);
+                    PERMISSIONS_REQUEST_FINE_LOCATION);
+            return;
         }
+        Log.i(TAG, "Passa2");
 
-        mBernardGeofenceService.initGeofencing();
+        mBernardoGeofenceService.registerGeofencing();
     }
 
     private AlertDialog buildAlertDoor() {
@@ -149,5 +161,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_FINE_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mBernardoGeofenceService.registerGeofencing();
+                }
+            }
+        }
     }
 }

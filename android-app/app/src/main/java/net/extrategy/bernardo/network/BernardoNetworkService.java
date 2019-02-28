@@ -21,19 +21,37 @@ public class BernardoNetworkService {
 
     private static final Object LOCK = new Object();
     private static BernardoNetworkService sInstance;
-    private static BernardoAPI sBernardoAPI;
+
+
+    private final BernardoAPI mBernardoAPI;
     private final Context mContext;
 
-    private static MutableLiveData<Boolean> mIsOpeningTheDoor;
-    private static MutableLiveData<Boolean> mIsOpeningTheGate;
-    private static MutableLiveData<String> mSuccess;
-    private static MutableLiveData<String> mError;
+    private final MutableLiveData<Boolean> mIsOpeningTheDoor;
+    private final MutableLiveData<Boolean> mIsOpeningTheGate;
+    private final MutableLiveData<String> mSuccess;
+    private final MutableLiveData<String> mError;
 
     private final AppExecutors mExecutors;
 
     private BernardoNetworkService(Context context, AppExecutors executors) {
         mContext = context;
         mExecutors = executors;
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(context.getString(R.string.server_url))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        mBernardoAPI = retrofit.create(BernardoAPI.class);
+
+        mIsOpeningTheDoor = new MutableLiveData<>();
+        mIsOpeningTheGate = new MutableLiveData<>();
+        mSuccess = new MutableLiveData<>();
+        mError = new MutableLiveData<>();
+
+        mIsOpeningTheDoor.postValue(false);
+        mIsOpeningTheGate.postValue(false);
+        mSuccess.postValue(null);
+        mError.postValue(null);
     }
 
     public static BernardoNetworkService getInstance(Context context, AppExecutors executors) {
@@ -41,20 +59,6 @@ public class BernardoNetworkService {
         if (sInstance == null) {
             synchronized (LOCK) {
                 sInstance = new BernardoNetworkService(context.getApplicationContext(), executors);
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(context.getString(R.string.server_url))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                sBernardoAPI = retrofit.create(BernardoAPI.class);
-                mIsOpeningTheDoor = new MutableLiveData<>();
-                mIsOpeningTheGate = new MutableLiveData<>();
-                mSuccess = new MutableLiveData<>();
-                mError = new MutableLiveData<>();
-
-                mIsOpeningTheDoor.postValue(false);
-                mIsOpeningTheGate.postValue(false);
-                mSuccess.postValue(null);
-                mError.postValue(null);
 
                 Log.d(TAG, "Made new network data source");
             }
@@ -94,7 +98,7 @@ public class BernardoNetworkService {
         String secret = mContext.getString(R.string.secret);
 
         mExecutors.networkIO().execute(() -> {
-            Call<BernardoResponse> callDoor = sBernardoAPI.action(id, secret);
+            Call<BernardoResponse> callDoor = mBernardoAPI.action(id, secret);
             try {
                 BernardoResponse result = callDoor.execute().body();
                 Log.d(TAG, result.success);
@@ -114,7 +118,7 @@ public class BernardoNetworkService {
         String secret = mContext.getString(R.string.secret);
 
         mExecutors.networkIO().execute(() -> {
-            Call<BernardoResponse> callDoor = sBernardoAPI.action(id, secret);
+            Call<BernardoResponse> callDoor = mBernardoAPI.action(id, secret);
             try {
                 BernardoResponse result = callDoor.execute().body();
                 Log.d(TAG, result.success);

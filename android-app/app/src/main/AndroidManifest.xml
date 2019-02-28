@@ -14,6 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAcoB5DpiG6N9x6cGZ9Eru6sVEAASNzVLA" />
         <activity
             android:launchMode="singleTop"
             android:name=".ui.MainActivity">
@@ -26,9 +29,7 @@
         <service
             android:name=".network.BernardoIntentService"
             android:exported="false" />
-        <service
-            android:name=".geofence.BernardoGeofenceTransitionsIntentService"
-            android:exported="false" />
+        <receiver android:name=".geofence.BernardoGeofenceBroadcastReceiver" />
     </application>
 
 </manifest>
