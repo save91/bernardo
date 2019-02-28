@@ -52,7 +52,7 @@ public class NotificationUtils{
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(
                             context.getString(R.string.notification_body)
                     ))
-                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                    .setDefaults(Notification.DEFAULT_ALL)
                     .setContentIntent(contentIntent(context))
                     .addAction(openTheDootAction(context))
                     .setAutoCancel(false);
