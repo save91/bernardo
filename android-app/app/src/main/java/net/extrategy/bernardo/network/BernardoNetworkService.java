@@ -101,11 +101,13 @@ public class BernardoNetworkService {
             Call<BernardoResponse> callDoor = mBernardoAPI.action(id, secret);
             try {
                 BernardoResponse result = callDoor.execute().body();
-                Log.d(TAG, result.success);
                 mSuccess.postValue(mContext.getResources().getString(R.string.success_door));
+                Log.i(TAG, result.success);
+                mSuccess.postValue(null);
             } catch (Exception e) {
                 mError.postValue(mContext.getResources().getString(R.string.error));
                 e.printStackTrace();
+                mError.postValue(null);
             }
             mIsOpeningTheDoor.postValue(false);
         });
@@ -121,11 +123,13 @@ public class BernardoNetworkService {
             Call<BernardoResponse> callDoor = mBernardoAPI.action(id, secret);
             try {
                 BernardoResponse result = callDoor.execute().body();
-                Log.d(TAG, result.success);
                 mSuccess.postValue(mContext.getResources().getString(R.string.success_gate));
+                Log.d(TAG, result.success);
+                mSuccess.postValue(null);
             } catch (Exception e) {
                 mError.postValue(mContext.getResources().getString(R.string.error));
                 e.printStackTrace();
+                mError.postValue(null);
             }
             mIsOpeningTheGate.postValue(false);
         });
