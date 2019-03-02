@@ -19,6 +19,7 @@ import net.extrategy.bernardo.R;
 import net.extrategy.bernardo.geofence.BernardoGeofenceService;
 import net.extrategy.bernardo.network.BernardoNetworkService;
 import net.extrategy.bernardo.utilities.InjectorUtils;
+import net.extrategy.bernardo.utilities.SchedulerUtils;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        SchedulerUtils.scheduleGeofencing(this);
         mBernardoGeofenceService.registerGeofencing();
     }
 
@@ -167,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_FINE_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    SchedulerUtils.scheduleGeofencing(this);
                     mBernardoGeofenceService.registerGeofencing();
                 }
             }

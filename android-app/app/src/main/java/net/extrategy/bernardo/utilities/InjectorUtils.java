@@ -4,6 +4,7 @@ import android.content.Context;
 
 import net.extrategy.bernardo.AppExecutors;
 import net.extrategy.bernardo.geofence.BernardoGeofenceService;
+import net.extrategy.bernardo.geofence.BernardoJobService;
 import net.extrategy.bernardo.network.BernardoNetworkService;
 import net.extrategy.bernardo.ui.MainViewModelFactory;
 

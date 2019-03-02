@@ -25,6 +25,13 @@
         <service
             android:name=".network.BernardoIntentService"
             android:exported="false" />
+        <service
+            android:exported="false"
+            android:name=".geofence.BernardoJobService">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
         <receiver android:name=".geofence.BernardoGeofenceBroadcastReceiver" />
     </application>
 

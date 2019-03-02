@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import net.extrategy.bernardo.R;
 import net.extrategy.bernardo.utilities.NotificationUtils;
+import net.extrategy.bernardo.utilities.SchedulerUtils;
 
 public class BernardoGeofenceService {
     private static final String TAG = BernardoGeofenceService.class.getSimpleName();
@@ -64,6 +65,7 @@ public class BernardoGeofenceService {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            SchedulerUtils.cancelAll(mContext);
                             e.printStackTrace();
                         }
                     });
@@ -83,6 +85,7 @@ public class BernardoGeofenceService {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        SchedulerUtils.cancelAll(mContext);
                         e.printStackTrace();
                     }
                 });
@@ -117,7 +120,7 @@ public class BernardoGeofenceService {
                         extrategyLong,
                         radiusInMeter
                 )
-                .setExpirationDuration(1000 * 60 * 60 * 24)
+                .setExpirationDuration(1000 * 60 * 60 * 24) // Is active for 12 hours
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
                         Geofence.GEOFENCE_TRANSITION_EXIT)
                 .build();
