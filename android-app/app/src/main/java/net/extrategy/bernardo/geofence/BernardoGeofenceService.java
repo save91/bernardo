@@ -15,6 +15,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import net.extrategy.bernardo.R;
 import net.extrategy.bernardo.utilities.NotificationUtils;
 
 public class BernardoGeofenceService {
@@ -99,10 +100,10 @@ public class BernardoGeofenceService {
     }
 
     private Geofence createGeofencing() {
-        String key = "extrategy";
-        Float radiusInMeter = Float.valueOf("50");
-        Double extrategyLat = 43.556865;
-        Double extrategyLong = 13.2797;
+        String key = mContext.getString(R.string.geofence_key);
+        Float radiusInMeter = Float.valueOf(mContext.getString(R.string.geofence_meters));
+        Double extrategyLat = Double.valueOf(mContext.getString(R.string.geofence_latitude));
+        Double extrategyLong = Double.valueOf(mContext.getString(R.string.geofence_longitude));
 
         Geofence geofence = new Geofence.Builder()
                 // Set the request ID of the geofence. This is a string to identify this
