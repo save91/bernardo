@@ -30,6 +30,8 @@ public class BernardoGeofenceService {
     private final Context mContext;
     private final GeofencingClient mGeofencingClient;
 
+    private PendingIntent mPendingIntent;
+
     private BernardoGeofenceService(Context context, GeofencingClient geofencingClient) {
         mContext = context;
         mGeofencingClient = geofencingClient;
@@ -131,10 +133,14 @@ public class BernardoGeofenceService {
     }
 
     private PendingIntent getGeofencePendingIntent() {
+        if (mPendingIntent != null) {
+            return mPendingIntent;
+        }
+
         Intent intent = new Intent(mContext, BernardoGeofenceBroadcastReceiver.class);
-        PendingIntent geofencePendingIntent = PendingIntent.getBroadcast(mContext, PENDING_INTENT_ID, intent, PendingIntent.
+        mPendingIntent = PendingIntent.getBroadcast(mContext, PENDING_INTENT_ID, intent, PendingIntent.
                 FLAG_UPDATE_CURRENT);
-        return geofencePendingIntent;
+        return mPendingIntent;
     }
 
     public LiveData<Boolean> isCloserToExtrategy() {
