@@ -3,6 +3,6 @@
     <string name="geofence_key" translatable="false">extrategy</string>
     <string name="geofence_latitude" translatable="false">43.556865</string>
     <string name="geofence_longitude" translatable="false">13.2797</string>
-    <string name="geofence_meters" translatable="false">50</string>
+    <string name="geofence_meters" translatable="false">200</string>
 
 </resources>
