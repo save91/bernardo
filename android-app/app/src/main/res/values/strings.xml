@@ -31,4 +31,6 @@
     <string name="cancel">Cancel</string>
 
     <string name="closer">DEBUG: Are you closer to extrategy?</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
