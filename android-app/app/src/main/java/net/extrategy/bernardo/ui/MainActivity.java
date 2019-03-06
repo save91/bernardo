@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 111;
 
     private MainActivityViewModel mViewModel;
+    private String mOldMessage;
 
     private Button mButtonDoor;
     private Button mButtonGate;
@@ -101,15 +102,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mViewModel.onError().observe(this, error -> {
-            if (error != null) {
-                showToast(error);
-            }
-        });
-
-        mViewModel.onSuccess().observe(this, success -> {
-            if (success != null) {
-                showToast(success);
+        mViewModel.onMessage().observe(this, message -> {
+            mOldMessage = message;
+            if (message != null) {
+                showToast(message);
             }
         });
 

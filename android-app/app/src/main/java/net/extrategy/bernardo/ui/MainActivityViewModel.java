@@ -23,12 +23,8 @@ public class MainActivityViewModel extends ViewModel {
         return mBernardoNetwordService.isOpeningTheGate();
     }
 
-    public LiveData<String> onError() {
-        return mBernardoNetwordService.onError();
-    }
-
-    public LiveData<String> onSuccess() {
-        return mBernardoNetwordService.onSuccess();
+    public LiveData<String> onMessage() {
+        return mBernardoNetwordService.onMessage();
     }
 
     public LiveData<Boolean> isCloserToExtrategy() {

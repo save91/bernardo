@@ -32,8 +32,7 @@ public class BernardoNetworkService {
 
     private final MutableLiveData<Boolean> mIsOpeningTheDoor;
     private final MutableLiveData<Boolean> mIsOpeningTheGate;
-    private final MutableLiveData<String> mSuccess;
-    private final MutableLiveData<String> mError;
+    private final MutableLiveData<String> mMessage;
 
     private final AppExecutors mExecutors;
 
@@ -51,13 +50,11 @@ public class BernardoNetworkService {
 
         mIsOpeningTheDoor = new MutableLiveData<>();
         mIsOpeningTheGate = new MutableLiveData<>();
-        mSuccess = new MutableLiveData<>();
-        mError = new MutableLiveData<>();
+        mMessage = new MutableLiveData<>();
 
         mIsOpeningTheDoor.postValue(false);
         mIsOpeningTheGate.postValue(false);
-        mSuccess.postValue(null);
-        mError.postValue(null);
+        mMessage.postValue(null);
     }
 
     public static BernardoNetworkService getInstance(Context context, AppExecutors executors) {
@@ -99,6 +96,7 @@ public class BernardoNetworkService {
 
     public void openDoor() {
         Log.d(TAG, "open door");
+        mMessage.postValue(null);
         mIsOpeningTheDoor.postValue(true);
 
         int[] appWidgetIds = mAppWidgetManager.getAppWidgetIds(new ComponentName(mContext, BernardoWidgetProvider.class));
@@ -111,13 +109,11 @@ public class BernardoNetworkService {
             Call<BernardoResponse> callDoor = mBernardoAPI.action(id, secret);
             try {
                 BernardoResponse result = callDoor.execute().body();
-                mSuccess.postValue(mContext.getResources().getString(R.string.success_door));
+                mMessage.postValue(mContext.getResources().getString(R.string.success_door));
                 Log.i(TAG, result.success);
-                mSuccess.postValue(null);
             } catch (Exception e) {
-                mError.postValue(mContext.getResources().getString(R.string.error));
+                mMessage.postValue(mContext.getResources().getString(R.string.error));
                 e.printStackTrace();
-                mError.postValue(null);
             }
             mIsOpeningTheDoor.postValue(false);
             BernardoWidgetProvider.updateLoading(mContext, mAppWidgetManager, false, appWidgetIds);
@@ -126,6 +122,7 @@ public class BernardoNetworkService {
 
     public void openGate() {
         Log.d(TAG, "open gate");
+        mMessage.postValue(null);
         mIsOpeningTheGate.postValue(true);
         String id = mContext.getString(R.string.id_gate);
         String secret = mContext.getString(R.string.secret);
@@ -134,13 +131,11 @@ public class BernardoNetworkService {
             Call<BernardoResponse> callDoor = mBernardoAPI.action(id, secret);
             try {
                 BernardoResponse result = callDoor.execute().body();
-                mSuccess.postValue(mContext.getResources().getString(R.string.success_gate));
+                mMessage.postValue(mContext.getResources().getString(R.string.success_gate));
                 Log.d(TAG, result.success);
-                mSuccess.postValue(null);
             } catch (Exception e) {
-                mError.postValue(mContext.getResources().getString(R.string.error));
+                mMessage.postValue(mContext.getResources().getString(R.string.error));
                 e.printStackTrace();
-                mError.postValue(null);
             }
             mIsOpeningTheGate.postValue(false);
         });
@@ -154,12 +149,7 @@ public class BernardoNetworkService {
         return mIsOpeningTheGate;
     }
 
-    public LiveData<String> onSuccess() {
-        return mSuccess;
+    public LiveData<String> onMessage() {
+        return mMessage;
     }
-
-    public LiveData<String> onError() {
-        return mError;
-    }
-
 }
