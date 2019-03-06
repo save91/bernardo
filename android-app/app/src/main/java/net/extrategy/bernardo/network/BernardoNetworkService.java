@@ -1,12 +1,15 @@
 package net.extrategy.bernardo.network;
 
+import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 import net.extrategy.bernardo.AppExecutors;
+import net.extrategy.bernardo.BernardoWidgetProvider;
 import net.extrategy.bernardo.R;
 
 import retrofit2.Call;
@@ -25,6 +28,7 @@ public class BernardoNetworkService {
 
     private final BernardoAPI mBernardoAPI;
     private final Context mContext;
+    private final AppWidgetManager mAppWidgetManager;
 
     private final MutableLiveData<Boolean> mIsOpeningTheDoor;
     private final MutableLiveData<Boolean> mIsOpeningTheGate;
@@ -42,6 +46,8 @@ public class BernardoNetworkService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         mBernardoAPI = retrofit.create(BernardoAPI.class);
+
+        mAppWidgetManager = AppWidgetManager.getInstance(mContext);
 
         mIsOpeningTheDoor = new MutableLiveData<>();
         mIsOpeningTheGate = new MutableLiveData<>();
@@ -94,6 +100,10 @@ public class BernardoNetworkService {
     public void openDoor() {
         Log.d(TAG, "open door");
         mIsOpeningTheDoor.postValue(true);
+
+        int[] appWidgetIds = mAppWidgetManager.getAppWidgetIds(new ComponentName(mContext, BernardoWidgetProvider.class));
+        BernardoWidgetProvider.updateLoading(mContext, mAppWidgetManager, true, appWidgetIds);
+
         String id = mContext.getString(R.string.id_door);
         String secret = mContext.getString(R.string.secret);
 
@@ -110,6 +120,7 @@ public class BernardoNetworkService {
                 mError.postValue(null);
             }
             mIsOpeningTheDoor.postValue(false);
+            BernardoWidgetProvider.updateLoading(mContext, mAppWidgetManager, false, appWidgetIds);
         });
     }
 
