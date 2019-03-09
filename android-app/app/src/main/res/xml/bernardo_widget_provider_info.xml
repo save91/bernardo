@@ -6,5 +6,5 @@
     android:minHeight="20dp"
     android:previewImage="@drawable/bernardo"
     android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="86400000"
+    android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen" />

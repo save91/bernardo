@@ -28,5 +28,8 @@
 
     <string name="ok_door">Yes, open the door</string>
     <string name="ok_gate">Yes, open the gate</string>
+
     <string name="cancel">Cancel</string>
+
+    <string name="widget_disabled">I am sleeping</string>
 </resources>

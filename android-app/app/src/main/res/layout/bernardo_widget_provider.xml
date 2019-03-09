@@ -27,6 +27,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:visibility="gone"
 
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
@@ -34,5 +35,19 @@
         android:layout_marginRight="0dp"
         android:layout_marginBottom="0dp"
         android:text="@string/btn_door" />
+
+    <TextView
+        android:id="@+id/text_disabled"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:text="@string/widget_disabled"/>
 
 </RelativeLayout>

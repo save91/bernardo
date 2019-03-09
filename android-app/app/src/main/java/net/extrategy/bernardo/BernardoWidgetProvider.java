@@ -5,23 +5,28 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import net.extrategy.bernardo.network.BernardoIntentService;
 import net.extrategy.bernardo.ui.MainActivity;
 
+import java.util.Calendar;
+
 /**
  * Implementation of App Widget functionality.
  */
 public class BernardoWidgetProvider extends AppWidgetProvider {
+    private static final String TAG = BernardoWidgetProvider.class.getSimpleName();
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 boolean isLoading, int appWidgetId) {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.bernardo_widget_provider);
-
-
+        Calendar calendar = Calendar.getInstance();
+        Log.d(TAG, "ora: " + calendar.get(Calendar.HOUR_OF_DAY));
 
         Intent intent = new Intent(context, BernardoIntentService.class);
         intent.putExtra(BernardoIntentService.EXTRA_ACTION, BernardoIntentService.ACTION_DOOR);
@@ -34,7 +39,14 @@ public class BernardoWidgetProvider extends AppWidgetProvider {
             views.setTextViewText(R.id.text_widget, context.getString(R.string.app_name));
         }
 
-        views.setOnClickPendingIntent(R.id.button_door_widget, pendingIntent);
+        if (isBusinessHours()) {
+            views.setViewVisibility(R.id.text_disabled, View.GONE);
+            views.setViewVisibility(R.id.button_door_widget, View.VISIBLE);
+            views.setOnClickPendingIntent(R.id.button_door_widget, pendingIntent);
+        } else {
+            views.setViewVisibility(R.id.button_door_widget, View.GONE);
+            views.setViewVisibility(R.id.text_disabled, View.VISIBLE);
+        }
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -63,6 +75,22 @@ public class BernardoWidgetProvider extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    static private boolean isBusinessHours() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        if (day == Calendar.SATURDAY || day == Calendar.SUNDAY) {
+            return false;
+        }
+
+        if (hour >= 8 && hour < 19) {
+            return true;
+        }
+
+        return false;
     }
 }
 
