@@ -22,15 +22,11 @@
     <string name="btn_gate">Gate</string>
 
     <string name="alert_door_title">Are you sure?</string>
-    <string name="alert_door_message">You are not closer to extrategy. Do you want open the door?</string>
+    <string name="alert_door_message">You are not in proximity of extrategy. Do you want open the door?</string>
     <string name="alert_gate_title">Are you sure?</string>
-    <string name="alert_gate_message">You are not closer to extrategy. Do you want open the gate?</string>
+    <string name="alert_gate_message">You are not in proximity of extrategy. Do you want open the gate?</string>
 
     <string name="ok_door">Yes, open the door</string>
     <string name="ok_gate">Yes, open the gate</string>
     <string name="cancel">Cancel</string>
-
-    <string name="closer">DEBUG: Are you closer to extrategy?</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
 </resources>

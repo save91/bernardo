@@ -96,7 +96,7 @@ public class BernardoGeofenceService {
 
     public void onEnter() {
         mIsCloserToExtrategy.postValue(true);
-        NotificationUtils.remindUserBecauseIsCloser(mContext);
+        NotificationUtils.remindUserBecauseIsInProximity(mContext);
     }
 
     public void onExit() {
