@@ -54,7 +54,7 @@ public class BernardoNetworkService {
 
         mIsOpeningTheDoor.postValue(false);
         mIsOpeningTheGate.postValue(false);
-        mMessage.postValue(null);
+        mMessage.postValue("");
     }
 
     public static BernardoNetworkService getInstance(Context context, AppExecutors executors) {
@@ -96,7 +96,7 @@ public class BernardoNetworkService {
 
     public void openDoor() {
         Log.d(TAG, "open door");
-        mMessage.postValue(null);
+        mMessage.postValue("");
         mIsOpeningTheDoor.postValue(true);
 
         int[] appWidgetIds = mAppWidgetManager.getAppWidgetIds(new ComponentName(mContext, BernardoWidgetProvider.class));
@@ -122,7 +122,7 @@ public class BernardoNetworkService {
 
     public void openGate() {
         Log.d(TAG, "open gate");
-        mMessage.postValue(null);
+        mMessage.postValue("");
         mIsOpeningTheGate.postValue(true);
         String id = mContext.getString(R.string.id_gate);
         String secret = mContext.getString(R.string.secret);

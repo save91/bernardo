@@ -13,8 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import net.extrategy.bernardo.BuildConfig;
 import net.extrategy.bernardo.R;
 import net.extrategy.bernardo.geofence.BernardoGeofenceService;
 import net.extrategy.bernardo.network.BernardoNetworkService;
@@ -30,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mButtonDoor;
     private Button mButtonGate;
-    private Switch mSwitchCloser;
+
+    private TextView mTextVersion;
 
     private AlertDialog mAlertDoor;
     private AlertDialog mAlertGate;
@@ -39,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
     private BernardoNetworkService mBernardoNetworkService;
     private BernardoGeofenceService mBernardoGeofenceService;
+
+    private Boolean mIsFirstMessage;
+    private String mFirstMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
         mButtonDoor = findViewById(R.id.button_door);
         mButtonGate = findViewById(R.id.button_gate);
-        mSwitchCloser = findViewById(R.id.switch_closer);
+
+        mTextVersion = findViewById(R.id.text_version);
+        mTextVersion.setText(BuildConfig.VERSION_NAME);
 
         mAlertDoor = buildAlertDoor();
         mAlertGate = buildAlertGate();
-
-        mSwitchCloser.setOnCheckedChangeListener((CompoundButton button, boolean isChecked) -> {
-            if (isChecked) {
-                Log.i(TAG, "checked");
-            } else {
-                Log.i(TAG, "unchecked");
-            }
-        });
 
         mButtonDoor.setOnClickListener((View v) -> {
             if (mIsUserCloserToExtrategy) {
@@ -102,8 +102,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mFirstMessage = mViewModel.onMessage().getValue();
+        mIsFirstMessage = true;
         mViewModel.onMessage().observe(this, message -> {
-            mOldMessage = message;
+            if (mIsFirstMessage) {
+                mIsFirstMessage = false;
+                if (mFirstMessage != null && !mFirstMessage.equals(message)) {
+                    showToast(message);
+                }
+                return;
+            }
+
             if (message != null) {
                 showToast(message);
             }
