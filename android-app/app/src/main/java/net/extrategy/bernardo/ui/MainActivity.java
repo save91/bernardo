@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            if (message != null) {
+            if (message != null && !message.isEmpty()) {
                 showToast(message);
             }
         });
