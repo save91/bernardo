@@ -6,7 +6,12 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="318f7b9e-ea8b-4a6d-98d2-86c477327a6b" name="Default Changelist" comment="" />
+    <list default="true" id="318f7b9e-ea8b-4a6d-98d2-86c477327a6b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-app/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android-app/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-app/app/src/androidTest/java/net/extrategy/bernardo/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/android-app/app/src/androidTest/java/net/extrategy/bernardo/MainActivityTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-app/app/src/main/res/values/server.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android-app/app/src/main/res/values/server.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,9 +22,10 @@
     <session id="2053440068">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.3" value="2" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.5" value="2" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
     </session>
@@ -54,10 +60,20 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
-      <pane id="AndroidView" />
       <pane id="Scope" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="bernardo" type="1abcf292:AndroidViewProjectNode" />
+              <item name="bernardo" type="e9137016:NonAndroidModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -121,13 +137,14 @@
       <window_info id="Designer" order="6" />
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Run" order="0" />
-      <window_info active="true" anchor="bottom" id="Logcat" order="1" visible="true" weight="0.5497326" />
+      <window_info anchor="bottom" id="Logcat" order="1" visible="true" weight="0.5497326" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" />
       <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
+      <window_info active="true" anchor="right" id="Assistant" visible="true" weight="0.32967034" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Theme Preview" order="2" />
