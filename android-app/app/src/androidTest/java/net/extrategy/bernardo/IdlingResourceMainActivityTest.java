@@ -7,8 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -25,7 +25,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+public class IdlingResourceMainActivityTest {
     @Rule
     public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
@@ -35,6 +35,6 @@ public class MainActivityTest {
     @Test
     public void clickDoorButton_ShowConfirmDialog() {
         onView(withId(R.id.button_door)).perform(click());
-        onView(withText(R.string.alert_door_title)).check(matches(isDisplayed()));
+        onView(withText("Are you sure?")).check(matches(isDisplayed()));
     }
 }
