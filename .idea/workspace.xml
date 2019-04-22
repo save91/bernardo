@@ -7,10 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="318f7b9e-ea8b-4a6d-98d2-86c477327a6b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android-app/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android-app/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android-app/app/src/androidTest/java/net/extrategy/bernardo/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/android-app/app/src/androidTest/java/net/extrategy/bernardo/MainActivityTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android-app/app/src/main/res/values/server.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android-app/app/src/main/res/values/server.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,37 +16,8 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="2053440068">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.3" value="2" />
-          <entry key="project.open.time.5" value="2" />
-          <entry key="project.opened" value="4" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GradleLocalSettings">
-    <option name="projectSyncType">
-      <map>
-        <entry key="$PROJECT_DIR$/android-app" value="PREVIEW" />
-        <entry key="$USER_HOME$/codelabs/architectureComponentsSunshineStartingCode" value="PREVIEW" />
-        <entry key="$USER_HOME$/ideato/android-architecture-components/GithubBrowserSample" value="PREVIEW" />
-        <entry key="$USER_HOME$/ideato/android-databinding/BasicSample" value="PREVIEW" />
-        <entry key="$USER_HOME$/ideato/android-databinding/TwoWaySample" value="PREVIEW" />
-        <entry key="$USER_HOME$/ideato/googleads-mobile-android-examples/java/admanager/InterstitialExample" value="PREVIEW" />
-        <entry key="$USER_HOME$/ideato/googleads-mobile-android-examples/java/doubleclick/InterstitialExample" value="PREVIEW" />
-        <entry key="$USER_HOME$/ideato/googleads-mobile-android-examples/kotlin/admob/NativeAdvancedExample" value="PREVIEW" />
-        <entry key="$USER_HOME$/ideato/googleads-mobile-android-examples/kotlin/doubleclick/CustomRenderingExample" value="PREVIEW" />
-        <entry key="$USER_HOME$/udacity/AdvancedAndroid_Shushme" value="PREVIEW" />
-        <entry key="$USER_HOME$/udacity/ud851-Exercises/Lesson05a-Android-Lifecycle/T05a.01-Exercise-LogLifecycle" value="PREVIEW" />
-      </map>
-    </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
@@ -60,7 +29,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
@@ -73,7 +42,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -103,7 +72,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
+    <configuration default="true" type="TestNG">
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <properties />
       <listeners />
@@ -128,6 +97,7 @@
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1027" extended-state="0" />
     <layout>
+      <window_info id="Resources Explorer" />
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.33394384" />
       <window_info id="Structure" order="2" side_tool="true" />
@@ -144,15 +114,12 @@
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" />
       <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="right" id="Assistant" visible="true" weight="0.32967034" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Theme Preview" order="2" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info active="true" anchor="right" id="Assistant" order="4" visible="true" weight="0.32967034" />
     </layout>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="masterDetails">
     <states>
