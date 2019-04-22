@@ -80,7 +80,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/avatar_image"
-                app:srcCompat="@drawable/extrategy" />
+                app:srcCompat="@drawable/people_photo" />
 
             <TextView
                 android:id="@+id/supporting_text"
